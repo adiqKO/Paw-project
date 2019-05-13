@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Użytkownicy</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div th:replace="navbar :: navbar">...</div>
+
+    <div class="container my-5">
+        <h3>Użytkownicy</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Imie</th>
+                    <th scope="col">Nazwisko</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Rola</th>
+                    <th scope="col"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}" >
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.email}">Text ...</td>
+                    <td th:text="${user.id}">Text ...</td>
+                    <td >
+                        <div th:each="role : ${user.roles}">
+                            <p th:text="${role.role}"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Zarządzaj
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" th:href="@{'/users/update/'+${user.id}}">Edytuj</a>
+                                <a class="dropdown-item" href="#">Szczegóły</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" th:href="@{'/users/delete/'+${user.id}}">Usuń</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

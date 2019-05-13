@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="formAddress" class="my-5" style="visibility: hidden" th:fragment="specificForm">
+        <p>Dodatkowe dane</p>
+        <form method="post" th:action="@{'/account/update'}" th:object="${userSpecific}">
+            <input class="form-control" th:field="*{address}" placeholder="Adres" /><br />
+            <input class="form-control" th:field="*{city}" placeholder="Miasto" /><br />
+            <input class="form-control" th:field="*{postcode}" placeholder="Kod pocztowy" /><br />
+            <input class="form-control" th:field="*{country}" placeholder="Kraj" /><br />
+            <input class="form-control" th:field="*{number}" placeholder="Numer telefonu" /><br />
+            <input class="btn btn-success" type="submit" value="Potwierdź" />
+        </form>
+    </div>
+</body>
+</html>
