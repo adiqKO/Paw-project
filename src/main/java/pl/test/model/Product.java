@@ -4,9 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -15,13 +14,14 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min=2)
+    @Size(min=2,message = "{pl.test.model.Product.title.Size}")
     private String title;
-    @NotNull
+    @NotEmpty(message = "{pl.test.model.Product.description.NotEmpty}")
     private String description;
-    @Min(1)
+    @NotNull(message = "{pl.test.model.Product.price.NotNull}")
+    @Digits(integer=5, fraction=2)
     private BigDecimal price;
-    @NotNull
+    @NotEmpty(message = "{pl.test.model.Product.type.NotEmpty}")
     private String type;
     private String pathToPhoto;
 
@@ -73,5 +73,17 @@ public class Product {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", type='" + type + '\'' +
+                ", pathToPhoto='" + pathToPhoto + '\'' +
+                '}';
     }
 }
