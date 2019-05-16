@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.test.model.Product;
 import pl.test.repository.ProductRepository;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -19,6 +21,14 @@ public class ProductService {
 
     public Product findById(long id){
         return productRepository.getOne(id);
+    }
+
+    public List<Product> findAll(){
+        return productRepository.findAll();
+    }
+
+    public void deleteProduct(long id){
+        productRepository.delete(productRepository.getOne(id));
     }
 }
 

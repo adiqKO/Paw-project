@@ -5,19 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-
-import org.apache.catalina.Server;
-import org.apache.tomcat.util.file.ConfigurationSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.jca.context.ResourceAdapterApplicationContext;
-import org.springframework.jca.context.SpringContextResourceAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.spring5.context.SpringContextUtils;
 import pl.test.model.Product;
 import pl.test.service.ProductService;
 import javax.validation.Valid;
@@ -26,7 +19,9 @@ import javax.validation.Valid;
 public class ProductController {
 
     private ProductService productService;
-    private static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
+    //Path currentPath = Paths.get(".");
+   // Path absolutePath = currentPath.toAbsolutePath();
+    //private static String uploadDirectory = "/public/";
 
     @Autowired
     public void setProductService(ProductService productService){
@@ -42,12 +37,15 @@ public class ProductController {
     @PostMapping("/product/add")
     public String addPhotoToBase(@RequestParam("imageFile") MultipartFile[] files,
                                  @ModelAttribute @Valid Product product, BindingResult bindResult){
+
             if(bindResult.hasErrors())
                 return "productForm";
             StringBuilder fileNames = new StringBuilder();
             for (MultipartFile file : files) {
                 if (Objects.equals(file.getContentType(), "image/jpeg")) {
-                    Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+                   // Path fileNameAndPath = Paths.get(absolutePath+"/src/main/resources/static/public/" + file.getOriginalFilename());
+                    Path fileNameAndPath = Paths.get("C:/Software/paw-project/target/classes/static/public/" + file.getOriginalFilename());
+                    System.out.println(fileNameAndPath);
                     fileNames.append(file.getOriginalFilename()).append(" ");
                     try {
                         Files.write(fileNameAndPath, file.getBytes());
@@ -59,5 +57,17 @@ public class ProductController {
         product.setPathToPhoto(String.valueOf(fileNames));
         productService.addProduct(product);
         return "redirect:/";
+    }
+
+    @GetMapping("/products")
+    public String getProducts(Model model){
+        model.addAttribute("products", productService.findAll());
+        return "products";
+    }
+
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable("id") long id){
+        productService.deleteProduct(id);
+        return "redirect:/products?success";
     }
 }

@@ -1,7 +1,6 @@
 package pl.test.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +15,6 @@ import pl.test.service.ProductService;
 public class HomeController {
 
     private ProductService productService;
-    private static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
 
     @Autowired
     public void setProductService(ProductService productService){
@@ -25,15 +23,8 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-        Product product = productService.findById(1L);
-        model.addAttribute("directory",uploadDirectory);
-        model.addAttribute("product",product);
+        model.addAttribute("products",productService.findAll());
         return "index";
-    }
-
-    @RequestMapping("/test")
-    public String homeTets(Model model) {
-        return "test";
     }
 
     @GetMapping("/login")
