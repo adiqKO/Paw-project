@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.test.component.ShoppingCart;
 import pl.test.model.Product;
 import pl.test.service.ProductService;
 import javax.validation.Valid;
@@ -22,6 +24,7 @@ public class ProductController {
     //Path currentPath = Paths.get(".");
    // Path absolutePath = currentPath.toAbsolutePath();
     //private static String uploadDirectory = "/public/";
+
 
     @Autowired
     public void setProductService(ProductService productService){
@@ -70,4 +73,5 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/products?success";
     }
+
 }

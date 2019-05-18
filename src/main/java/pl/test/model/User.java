@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,6 +13,7 @@ public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="user_id")
     private Long id;
     @Size(min = 2, message = "{pl.test.model.User.firstName.Size}")
     private String firstName;
@@ -22,6 +24,8 @@ public class User  {
     private String email;
     @Size(min = 6, message = "{pl.test.model.User.password.Size}")
     private String password;
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<UserRole> roles = new HashSet<>();
     @OneToOne(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
@@ -85,6 +89,14 @@ public class User  {
         this.userSpecific = userSpecific;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -93,6 +105,7 @@ public class User  {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", orders=" + orders +
                 ", roles=" + roles +
                 ", userSpecific=" + userSpecific +
                 '}';
