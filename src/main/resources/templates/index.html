@@ -6,21 +6,44 @@
     <meta charset="UTF-8">
     <title>Strona Główna</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <style>
+        .jumbotron {
+            background: #76b852;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #8DC26F, #76b852); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    </style>
 </head>
 <body>
+
     <div th:replace="navbar :: navbar">...</div>
-    <div class="container my-5">
+
+    <div class="container my-4">
+        <div class="jumbotron text-light">
+            <div class="row">
+            <div class="col-lg-9">
+            <h1 class="display-4">Świat Yerby</h1>
+            <p class="lead">Witamy w świecie yerby, znajdziesz tu niemal wszystkie yerby dostępne na planecie oraz akcesoria.</p>
+            <hr class="my-4">
+            <p>Jeśli chcesz być na bierząco zajrzyj na nasze media społecznościowe</p>
+            </div>
+            <div class="col-lg-3">
+                <img class="img-fluid mx-auto " src="public/baner.png"  alt="gh"/>
+            </div>
+            </div>
+        </div>
             <div class="row">
                 <div class="col-md-4 col-lg-3" th:each="product : ${products}">
                     <div class="card h-100">
+                        <a th:href="@{'/item/show/'+${product.id}}" style="">
                         <img class="card-img-top" th:src="@{${'public/'+product.pathToPhoto}}" alt="dfd"/>
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title" th:text="${product.title}"></h5>
-                            <p id="limit-text" class="card-text" th:maxlength="20" th:text="${product.description}"></p>
+                            <p id="limit-text" class="card-text" th:text="${product.description}"></p>
                             <div class="text-right">
-                                <a href="#" class="btn btn-success btn-sm">Pokaż produkt</a>
-                                <a id="addText" class="btn btn-outline-success btn-sm" th:href="@{'/cart/add/'+${product.id}}">
+                                <span  th:text="${product.price+' zł'}"></span>
+                                <a id="addText" class="btn btn-outline-success btn-sm ml-1" th:href="@{'/cart/add/'+${product.id}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                          width="17" height="17"
                                          viewBox="0 0 210 210"

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import pl.test.component.ShoppingCart;
 import pl.test.model.Product;
 import pl.test.service.ProductService;
 import javax.validation.Valid;
@@ -72,6 +70,12 @@ public class ProductController {
     public String deleteProduct(@PathVariable("id") long id){
         productService.deleteProduct(id);
         return "redirect:/products?success";
+    }
+
+    @GetMapping("/item/show/{id}")
+    public String showProduct(@PathVariable("id") long id, Model model){
+        model.addAttribute("product",productService.findById(id));
+        return "item";
     }
 
 }

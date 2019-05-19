@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-6"><h3>Koszyk</h3></div>
         <div class="col-lg-6 text-right">
-
+            <a class="btn btn-outline-primary btn-sm" th:href="@{/}">Kontynuuj zakupy</a>
         </div>
     </div>
     <table class="table table-striped" th:if="${products.empty == false }">
@@ -28,7 +28,7 @@
         <tr th:each="product : ${products}" >
            <td ><img style="width:100px; height:100px;" th:src="@{${'public/'+product.pathToPhoto}}" alt="dfd"/></td>
             <td th:text="${product.title}"></td>
-            <td th:text="${product.price}"></td>
+            <td th:text="${product.price}+'zł'"></td>
             <td>
                 <a th:href="@{'/cart/delete/'+${products.indexOf(product)}}">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -45,7 +45,7 @@
             <h4 class="text-right" th:text="${price+'zł'}"></h4>
         </div>
         <div class="col-lg-2">
-            <a class="btn btn-outline-success text-right" href="#">Podsumowanie</a>
+            <a class="btn btn-outline-success text-right" th:href="@{/order}" >Podsumowanie</a>
         </div>
     </div>
     <p class="text-center" th:unless="${products.empty == false }">Twój koszyk jest pusty.</p>

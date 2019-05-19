@@ -1,6 +1,7 @@
 package pl.test.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
     @Column(name = "details")
     private String details;
     @ManyToOne
