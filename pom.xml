@@ -56,6 +56,11 @@
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
             <version>3.0.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.10</version>
+        </dependency>
     </dependencies>
 
     <build>

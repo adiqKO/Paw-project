@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.test.component.ShoppingCart;
 import pl.test.model.Order;
 import pl.test.model.Product;
+import pl.test.model.User;
 import pl.test.repository.OrderRepository;
 import pl.test.repository.ProductRepository;
 import pl.test.repository.UserRepository;
@@ -45,4 +46,16 @@ public class OrderService {
         shoppingCart.getProducts().clear();
     }
 
+    public List<Order> findAll(){
+        return orderRepository.findAll();
+    }
+
+    public List<Order> findByUser(String email){
+        User user = userRepository.findByEmail(email);
+        return orderRepository.findByUser(user);
+    }
+
+    public Order findById(long id){
+        return orderRepository.getOne(id);
+    }
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zamówienia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="navbar :: navbar">...</div>
+<div class="container mt-5">
+    <h3>Twoje zamówienia</h3>
+<div class="row">
+    <div class="col-md-4 col-lg-3" th:each="order : ${orders}">
+        <div class="card h-100">
+            <a th:href="@{'/item/show/'+${order.id}}" style="">
+            </a>
+            <div class="card-body">
+                <p id="limit-text" class="card-text" th:text="${order.createDate}"></p>
+                <ul class="list-group list-group-flush" th:each="product : ${order.products}">
+                        <li class="list-group-item" th:text="${product.title}"></li>
+                </ul>
+                <div class="text-right mt-2">
+                    <span  th:text="${order.getPrice()+' zł'}"></span>
+                    <a id="addText" class="btn btn-outline-success btn-sm ml-1" th:href="@{'/pdfreport/'+${order.id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                             width="17" height="17"
+                             viewBox="0 0 210 210"
+                             style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,210v-210h210v210z" fill="none"></path><g id="original-icon" fill="#2ecc71"><path d="M43.75,26.25c-9.7125,0 -17.5,7.875 -17.5,17.5v122.5c0,9.625 7.7875,17.5 17.5,17.5h97.75391l-21.90918,-21.92627c-4.17375,2.7825 -9.18723,4.42627 -14.59473,4.42627c-14.525,0 -26.25,-11.725 -26.25,-26.25c0,-14.525 11.725,-26.25 26.25,-26.25h43.75c4.6375,0 9.09179,1.8457 12.37304,5.12696l22.62696,22.62695v-80.25391l-35,-35zM43.75,43.75h87.5v35h-87.5zM131.25,131.25v17.5l45.03174,45.03174l17.5,-17.5l-45.03173,-45.03173zM199.96827,182.46827l-17.5,17.5l8.75,8.75c1.70625,1.70625 4.48027,1.70625 6.18652,0l11.31348,-11.31348c1.70625,-1.715 1.70625,-4.48027 0,-6.18652z"></path></g></g></svg>
+                        <span>Faktura</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

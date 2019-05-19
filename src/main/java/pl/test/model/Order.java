@@ -1,7 +1,11 @@
 package pl.test.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,6 +19,10 @@ public class Order {
     private List<Product> products = new ArrayList<>();
     @Column(name = "details")
     private String details;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date")
+    private Date createDate;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -51,6 +59,22 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public BigDecimal getPrice(){
+        BigDecimal price = new BigDecimal(0);
+        for(Product product : products){
+            price = price.add(product.getPrice());
+        }
+        return price;
     }
 
     @Override

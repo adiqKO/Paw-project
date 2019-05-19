@@ -9,8 +9,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.PostConstruct;
+import java.util.Date;
+import java.util.TimeZone;
+
 @SpringBootApplication
 public class SpringSecurityDbApplication {
+
+    @PostConstruct
+    public void init(){
+        TimeZone.setDefault(TimeZone.getTimeZone("Poland"));   // It will set UTC timezone
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(SpringSecurityDbApplication.class, args);

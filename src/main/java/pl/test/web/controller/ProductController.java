@@ -66,6 +66,12 @@ public class ProductController {
         return "products";
     }
 
+    @GetMapping("/items")
+    public String showProducts(Model model){
+        model.addAttribute("products", productService.findAll());
+        return "items";
+    }
+
     @GetMapping("/products/delete/{id}")
     public String deleteProduct(@PathVariable("id") long id){
         productService.deleteProduct(id);
