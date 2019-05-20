@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css"  th:href="@{'public/css/'+${session.theme}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -10,7 +11,7 @@
 
     <div class="container my-4">
         <div class="row">
-    <div class="col-md-4 col-lg-3" th:each="product : ${products}">
+    <div class="col-md-4 col-lg-3 mt-3" th:each="product : ${products}">
         <div class="card h-100">
             <a th:href="@{'/item/show/'+${product.id}}" style="">
                 <img class="card-img-top" th:src="@{${'public/'+product.pathToPhoto}}" alt="dfd"/>

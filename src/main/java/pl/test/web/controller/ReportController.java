@@ -21,7 +21,6 @@ import java.util.List;
 @RestController
 public class ReportController {
 
-
     private OrderService orderService;
 
     @Autowired

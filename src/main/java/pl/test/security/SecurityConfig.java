@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/items").permitAll()
                 .antMatchers("/chart").permitAll()
                 .antMatchers("/city").permitAll()
+                .antMatchers("/theme").permitAll()
                     .antMatchers("/item/show/**").permitAll()
                    // .antMatchers("/users").hasRole("ADMIN")
                     .antMatchers("/products").hasRole("ADMIN")
@@ -49,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/")
                 .and().exceptionHandling()
                     .accessDeniedPage("/error");
-
     }
 
 }

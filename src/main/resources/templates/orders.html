@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Zamówienia</title>
-    <link rel="stylesheet" type="text/css"  href="/public/css/style.css">
+    <link rel="stylesheet" type="text/css"  th:href="@{'/public/css/'+${session.theme}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -11,7 +11,7 @@
 <div id="start" class="container mt-5">
     <h3>Zamówienia</h3>
     <div class="row">
-        <div class="col-md-4 col-lg-3 mt-1" th:each="order : ${orders}">
+        <div class="col-md-4 col-lg-3 mt-3" th:each="order : ${orders}">
             <div class="card h-100">
                 <div class="card-body">
                     <p  class="card-text" th:text="${order.user.firstName+' '+order.user.lastName}"></p>

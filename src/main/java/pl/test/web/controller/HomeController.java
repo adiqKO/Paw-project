@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.test.service.ProductService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
+
 @Controller
 public class HomeController {
 
@@ -21,9 +25,23 @@ public class HomeController {
     }
 
     @RequestMapping("/")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
+        if(null == session.getAttribute("theme")) {
+            session.setAttribute("theme", "style.css");
+        }
         model.addAttribute("products",productService.findLimit(8));
         return "index";
+    }
+
+    @GetMapping("/theme")
+    public String theme(HttpServletRequest request,HttpSession session){
+        Object v = session.getAttribute("theme");
+        if(v != null && v.equals("style.css")){
+            session.setAttribute("theme", "dark.css");
+        }else {
+            session.setAttribute("theme", "style.css");
+        }
+        return getPreviousPageByRequest(request).orElse("redirect:/");
     }
 
     @GetMapping("/chart")
@@ -39,5 +57,10 @@ public class HomeController {
             return "redirect:/";
         }
         return "login";
+    }
+
+    private Optional<String> getPreviousPageByRequest(HttpServletRequest request)
+    {
+        return Optional.ofNullable(request.getHeader("Referer")).map(requestUrl -> "redirect:" + requestUrl);
     }
 }

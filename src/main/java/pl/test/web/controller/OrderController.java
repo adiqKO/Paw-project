@@ -8,6 +8,7 @@ import pl.test.model.Order;
 import pl.test.service.OrderService;
 import pl.test.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -35,6 +36,7 @@ public class OrderController {
     @GetMapping("/orders")
     public String showUserOrders(Model model, Principal principal){
         model.addAttribute("orders", orderService.findByUser(principal.getName()));
+
         return "user-order";
     }
 
