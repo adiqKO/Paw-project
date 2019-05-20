@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="navbar :: navbar">...</div>
+<div class="container">
+
+    <div class="my-5">
+        <p style="font-size: 20px">Jesteśmy prężnie rozwijającym się sklepem stale poszerzającym swoje doświadczenie.
+            Wielu klientów nam zaufało i nie zawiodło się na naszym doświadczeniu i profesjonalizmie.
+            Świat Yerby to nie tylko sklep to paczka znajomych którzy uwielbiają Yerbe i klimaty Ameryki Południowej.
+            W razie jakichkolwiek pytań zapraszamy do kontaktu: swiat-yerby@gmail.com</p>
+
+    </div>
+    <canvas id="myChart" width="800" height="500"></canvas>
+</div>
+<div th:replace="footer :: footer">...</div>
+<script>
+    var week = [0];
+    var client = [12];
+
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: week,
+            datasets: [
+                {
+                    data: client,
+                    label: "Klienci",
+                    borderColor: "#5cb85c",
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Ilość nowych klientów w przeciągu każdego tygodnia.',
+                fontSize: 18
+            }
+        }
+    });
+
+    function load(){
+    $.ajax({
+        url : '/city',
+        dataType: "json"
+    }).done(function(res) {
+        var weeks = week[week.length-1];
+        week.push(weeks+res.weekOfActive);
+        client.push(res.amountOfClient);
+        myChart.update();
+    })
+}
+  $(document).ready(function(){
+      setInterval(load,2000);
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

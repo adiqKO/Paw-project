@@ -8,6 +8,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pl.test.model.Order;
@@ -70,8 +73,16 @@ public class PdfReport {
             Paragraph address = new Paragraph(order.getUser().getUserSpecific().getAddress()+" "+
                     order.getUser().getUserSpecific().getCity(),myFontSmall);
             Paragraph space = new Paragraph(" ",myFontSmall);
-            Paragraph price = new Paragraph(order.getPrice()+" zł                                      ",myFont);
+            Paragraph price = new Paragraph(order.getPrice()+" zł                                    ",myFont);
+            Date date = order.getCreateDate();
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(date);
+            Paragraph sign = new Paragraph("Świat Yerby",myFont);
+            Paragraph dateParagraph = new Paragraph(calendar.get(Calendar.DAY_OF_MONTH)+"-"
+                    +(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.YEAR),myFont);
             price.setAlignment(Element.ALIGN_RIGHT);
+            sign.setAlignment(Element.ALIGN_RIGHT);
+            dateParagraph.setAlignment(Element.ALIGN_RIGHT);
 
             PdfWriter.getInstance(document, out);
             document.open();
@@ -81,7 +92,9 @@ public class PdfReport {
             document.add(space);
             document.add(table);
             document.add(price);
-
+            document.add(space);
+            document.add(sign);
+            document.add(dateParagraph);
             document.close();
 
         } catch (DocumentException ex) {

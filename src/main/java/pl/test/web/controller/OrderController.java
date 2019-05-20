@@ -6,24 +6,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.test.model.Order;
 import pl.test.service.OrderService;
+import pl.test.service.UserService;
+
 import java.security.Principal;
 
 @Controller
 public class OrderController {
 
     private OrderService orderService;
-
+    private UserService userService;
 
     @Autowired
     public void setOrderService(OrderService orderService){this.orderService = orderService;}
 
-
+    @Autowired
+    public void setUserService(UserService userService) {this.userService = userService;}
 
     @GetMapping("/order")
     public String makeAnOrder(Principal principal){
-        Order order = new Order();
-        orderService.addOrder(order,principal.getName());
-        return "redirect:/";
+        if(userService.findByEmail(principal.getName()).getUserSpecific() != null) {
+            Order order = new Order();
+            orderService.addOrder(order, principal.getName());
+            return "redirect:/orders?success=true";
+        }
+        return "redirect:/account?success=false";
     }
 
     @GetMapping("/orders")

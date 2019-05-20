@@ -26,6 +26,11 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/chart")
+    public String chart(){
+        return "chart";
+    }
+
     @GetMapping("/login")
     public String login() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -35,7 +40,4 @@ public class HomeController {
         }
         return "login";
     }
-
-
-
 }
