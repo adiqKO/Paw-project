@@ -37,5 +37,9 @@ public class ProductService {
     public void deleteProduct(long id){
         productRepository.delete(productRepository.getOne(id));
     }
+
+    public List<Product> findByType(String type){
+        return productRepository.findByType(type);
+    }
 }
 

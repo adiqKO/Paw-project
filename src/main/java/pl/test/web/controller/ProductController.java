@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,9 +47,9 @@ public class ProductController {
                 return "productForm";
             StringBuilder fileNames = new StringBuilder();
             for (MultipartFile file : files) {
-                if (Objects.equals(file.getContentType(), "image/jpeg")) {
+                if (Objects.equals(file.getContentType(), "image/jpeg") || Objects.equals(file.getContentType(), "image/png")) {
                    // Path fileNameAndPath = Paths.get(absolutePath+"/src/main/resources/static/public/" + file.getOriginalFilename());
-                    Path fileNameAndPath = Paths.get("C:/Software/paw-project/target/classes/static/public/" + file.getOriginalFilename());
+                    Path fileNameAndPath = Paths.get("C:/Software/Paw-project/target/classes/static/public/" + file.getOriginalFilename());
                     System.out.println(fileNameAndPath);
                     fileNames.append(file.getOriginalFilename()).append(" ");
                     try {
@@ -57,7 +61,7 @@ public class ProductController {
             }
         product.setPathToPhoto(String.valueOf(fileNames));
         productService.addProduct(product);
-        return "redirect:/";
+        return "redirect:/product/add?success=true";
     }
 
     @GetMapping("/products")
@@ -68,7 +72,26 @@ public class ProductController {
 
     @GetMapping("/items")
     public String showProducts(Model model){
-        model.addAttribute("products", productService.findAll());
+        List<Product> products = productService.findAll();
+        Set<String> types = new HashSet<>();
+        for (Product product: products){
+            types.add(product.getType());
+        }
+        model.addAttribute("types", types);
+        model.addAttribute("products",products);
+        return "items";
+    }
+
+    @GetMapping("/items/type/{type}")
+    public String showTypeProducts(@PathVariable("type") String type,Model model){
+        String typeEdit = type.replace('+',' ');
+        List<Product> products = productService.findAll();
+        Set<String> types = new HashSet<>();
+        for (Product product: products){
+            types.add(product.getType());
+        }
+        model.addAttribute("types", types);
+        model.addAttribute("products", productService.findByType(typeEdit));
         return "items";
     }
 

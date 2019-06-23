@@ -1,4 +1,4 @@
-package pl.test;
+package pl.test.logic;
 
 public class Population {
 

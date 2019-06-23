@@ -1,4 +1,4 @@
-package pl.test;
+package pl.test.logic;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
@@ -26,8 +26,8 @@ public class PdfReport {
         try {
 
             PdfPTable table = new PdfPTable(3);
-            table.setWidthPercentage(60);
-            table.setWidths(new int[]{3, 3, 3});
+            table.setWidthPercentage(80);
+            table.setWidths(new int[]{10, 10, 10});
 
             Font headFont = FontFactory.getFont(FontFactory.TIMES_BOLD, 15);
 
@@ -73,7 +73,7 @@ public class PdfReport {
             Paragraph address = new Paragraph(order.getUser().getUserSpecific().getAddress()+" "+
                     order.getUser().getUserSpecific().getCity(),myFontSmall);
             Paragraph space = new Paragraph(" ",myFontSmall);
-            Paragraph price = new Paragraph(order.getPrice()+" zł                                    ",myFont);
+            Paragraph price = new Paragraph(order.getPrice()+" zł                         ",myFont);
             Date date = order.getCreateDate();
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(date);

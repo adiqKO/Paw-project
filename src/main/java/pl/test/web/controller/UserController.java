@@ -69,6 +69,14 @@ public class UserController {
         return "update";
     }
 
+    @GetMapping("/users/show/{id}")
+    public String showUser(@PathVariable("id") long id, Model model){
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("userSpecific", user.getUserSpecific() == null ? new UserSpecific() : user.getUserSpecific());
+        return "userInfo";
+    }
+
     @GetMapping("/account")
     public String showAccount(Principal principal, Model model){
         User user = userService.findByEmail(principal.getName());

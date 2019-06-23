@@ -41,8 +41,7 @@
                                 Zarządzaj
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" th:href="@{'/users/update/'+${user.id}}">Edytuj</a>
-                                <a class="dropdown-item" href="#">Szczegóły</a>
+                                <a class="dropdown-item" th:href="@{'/users/show/'+${user.id}}">Szczegóły</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" th:href="@{'/users/delete/'+${user.id}}">Usuń</a>
                             </div>

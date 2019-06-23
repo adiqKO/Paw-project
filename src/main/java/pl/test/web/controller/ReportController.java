@@ -10,7 +10,7 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import pl.test.PdfReport;
+import pl.test.logic.PdfReport;
 import pl.test.model.Order;
 import pl.test.service.OrderService;
 import java.io.ByteArrayInputStream;

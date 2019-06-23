@@ -23,7 +23,9 @@
                     <div class="card-body">
                         <p id="limit-text" class="card-text" th:text="${order.createDate}"></p>
                         <ul class="list-group list-group-flush" th:each="product : ${order.products}">
-                            <li class="list-group-item" th:text="${product.title}"></li>
+                            <li class="list-group-item" >
+                                <a class="text-dark" th:href="@{'/item/show/'+${product.id}}" th:text="${product.title}" ></a>
+                            </li>
                         </ul>
                         <div class="text-right mt-2">
                             <span  th:text="${order.getPrice()+' zł'}"></span>

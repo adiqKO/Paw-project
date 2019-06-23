@@ -3,7 +3,7 @@ package pl.test.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.test.Population;
+import pl.test.logic.Population;
 import pl.test.model.Product;
 import pl.test.service.ProductService;
 

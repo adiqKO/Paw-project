@@ -65,6 +65,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User findById(long id){
+        return userRepository.getOne(id);
+    }
     public void updateUser(long id, String nameOfRole){
         User user = userRepository.getOne(id);
         UserRole role = userRoleRepository.findByRole(nameOfRole);
