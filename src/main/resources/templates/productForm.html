@@ -32,13 +32,25 @@
                     <small th:errors="*{title}" class="text-danger"></small>
                 </div>
                 <div class="col-sm-8">
-                    <input class="form-control" type="text" th:field="*{type}" th:classappend="${#fields.hasErrors('type')} ? 'is-invalid' : ''" placeholder="Typ produktu" /><br />
+                    <label for="inputState">Typ Produktu</label>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <select id="inputState" class="form-control" th:field="*{type}">
+                                <option th:each="type : ${types}"  th:value="${type.id}" th:text="${type.getName()}"></option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <a class="btn btn-outline-success btn-sm" th:href="@{'/type/add'}" th:text="${'Dodaj kategorię'}"></a>
+                        </div>
+                    </div>
+                    <br />
+
                 </div>
                 <div class="col-sm-4">
                     <small th:errors="*{type}" class="text-danger"></small>
                 </div>
                 <div class="col-sm-8">
-                    <input class="form-control" type="number" min="1.00"  step="0.01" th:field="*{price}" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''" placeholder="Cena"/><br />
+                    <input class="form-control" value="1.00" type="number" min="1.00"  step="0.01" th:field="*{price}" th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''" placeholder="Cena"/><br />
                 </div>
                 <div class="col-sm-4">
                     <small th:errors="*{price}" class="text-danger"></small>

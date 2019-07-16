@@ -14,7 +14,7 @@
             <img class="card-img-top" th:src="@{${'../../public/'+product.pathToPhoto}}" alt="dfd"/>
         </div>
             <div class="col-lg-7">
-                <p class="mb-1 mt-4" th:text="${product.type}"></p>
+                <p class="mb-1 mt-4" th:text="${product.type.getName()}"></p>
                 <h4  th:text="${product.title}"></h4>
                 <p th:text="${product.description}"></p>
 

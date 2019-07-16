@@ -1,11 +1,6 @@
 package pl.test.model;
 
-import org.springframework.data.repository.cdi.Eager;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -23,8 +18,8 @@ public class Product {
     @NotNull(message = "{pl.test.model.Product.price.NotNull}")
     @Digits(integer=5, fraction=2)
     private BigDecimal price;
-    @NotEmpty(message = "{pl.test.model.Product.type.NotEmpty}")
-    private String type;
+    @ManyToOne(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+    private TypeProduct type;
     private String pathToPhoto;
 
     public Product(){}
@@ -69,23 +64,11 @@ public class Product {
         this.pathToPhoto = pathToPhoto;
     }
 
-    public String getType() {
+    public TypeProduct getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TypeProduct type) {
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", type='" + type + '\'' +
-                ", pathToPhoto='" + pathToPhoto + '\'' +
-                '}';
     }
 }

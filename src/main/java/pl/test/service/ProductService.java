@@ -5,8 +5,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.test.model.Product;
+import pl.test.model.TypeProduct;
 import pl.test.repository.ProductRepository;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 @Service
@@ -38,8 +40,8 @@ public class ProductService {
         productRepository.delete(productRepository.getOne(id));
     }
 
-    public List<Product> findByType(String type){
-        return productRepository.findByType(type);
+    public List<Product> findByType(TypeProduct typeProduct){
+        return productRepository.findByType(typeProduct);
     }
 }
 

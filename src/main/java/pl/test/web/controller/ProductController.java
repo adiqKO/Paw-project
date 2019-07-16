@@ -16,13 +16,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.test.model.Product;
+import pl.test.model.TypeProduct;
 import pl.test.service.ProductService;
+import pl.test.service.TypeProductService;
+
 import javax.validation.Valid;
 
 @Controller
 public class ProductController {
 
     private ProductService productService;
+    private TypeProductService typeProductService;
     //Path currentPath = Paths.get(".");
    // Path absolutePath = currentPath.toAbsolutePath();
     //private static String uploadDirectory = "/public/";
@@ -33,18 +37,25 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @Autowired
+    public void setTypeProductService(TypeProductService typeProductService) {this.typeProductService = typeProductService; }
+
     @GetMapping("/product/add")
     public String addPhoto(Model model){
+        model.addAttribute("types", typeProductService.findAll());
         model.addAttribute("product", new Product());
         return "productForm";
     }
 
     @PostMapping("/product/add")
     public String addPhotoToBase(@RequestParam("imageFile") MultipartFile[] files,
-                                 @ModelAttribute @Valid Product product, BindingResult bindResult){
+                                 @ModelAttribute @Valid Product product, BindingResult bindResult, Model model){
 
-            if(bindResult.hasErrors())
+            if(bindResult.hasErrors()){
+                model.addAttribute("errors", bindResult.getModel());
+                model.addAttribute("types", typeProductService.findAll());
                 return "productForm";
+            }
             StringBuilder fileNames = new StringBuilder();
             for (MultipartFile file : files) {
                 if (Objects.equals(file.getContentType(), "image/jpeg") || Objects.equals(file.getContentType(), "image/png")) {
@@ -73,7 +84,7 @@ public class ProductController {
     @GetMapping("/items")
     public String showProducts(Model model){
         List<Product> products = productService.findAll();
-        Set<String> types = new HashSet<>();
+        Set<TypeProduct> types = new HashSet<>();
         for (Product product: products){
             types.add(product.getType());
         }
@@ -85,13 +96,14 @@ public class ProductController {
     @GetMapping("/items/type/{type}")
     public String showTypeProducts(@PathVariable("type") String type,Model model){
         String typeEdit = type.replace('+',' ');
+        System.out.println(typeEdit);
         List<Product> products = productService.findAll();
-        Set<String> types = new HashSet<>();
+        Set<TypeProduct> types = new HashSet<>();
         for (Product product: products){
             types.add(product.getType());
         }
         model.addAttribute("types", types);
-        model.addAttribute("products", productService.findByType(typeEdit));
+        model.addAttribute("products", productService.findByType(typeProductService.findByName(typeEdit)));
         return "items";
     }
 

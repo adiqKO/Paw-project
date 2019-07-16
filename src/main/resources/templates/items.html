@@ -15,7 +15,7 @@
                 <a class="btn btn-outline-secondary" th:href="@{/items}" th:text="${'Wszystkie produkty'}"></a>
             </div>
             <div class="ml-2" th:each="type : ${types}">
-                <a class="btn btn-outline-success" th:href="@{'/items/type/'+${type}}" th:text="${type}"></a>
+                <a class="btn btn-outline-success" th:href="@{'/items/type/'+${type.getName()}}" th:text="${type.getName()}"></a>
             </div>
         </div>
         <div class="row">

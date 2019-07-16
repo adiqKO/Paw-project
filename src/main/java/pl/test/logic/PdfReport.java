@@ -56,7 +56,7 @@ public class PdfReport {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Phrase(product.getType(), myFont));
+                cell = new PdfPCell(new Phrase(product.getType().getName(), myFont));
                 cell.setPaddingLeft(5);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
