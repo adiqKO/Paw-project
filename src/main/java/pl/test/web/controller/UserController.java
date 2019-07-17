@@ -3,7 +3,6 @@ package pl.test.web.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,7 +48,7 @@ public class UserController {
     @GetMapping("/users")
     public String showUsers(Model model){
             model.addAttribute("users", userService.findAll());
-            return "users";
+            return "admin/users";
     }
 
     @GetMapping("/users/delete/{id}")
@@ -66,7 +65,7 @@ public class UserController {
 
     @GetMapping("/users/update/{id}")
     public String updateUser(@PathVariable("id") long id){
-        return "update";
+        return "admin/update";
     }
 
     @GetMapping("/users/show/{id}")

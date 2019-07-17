@@ -8,7 +8,6 @@ import pl.test.model.Order;
 import pl.test.service.OrderService;
 import pl.test.service.UserService;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -43,7 +42,7 @@ public class OrderController {
     @GetMapping("/orders/show/all")
     public String showAllOrders(Model model){
         model.addAttribute("orders", orderService.findAll());
-        return "orders";
+        return "admin/orders";
     }
 
 

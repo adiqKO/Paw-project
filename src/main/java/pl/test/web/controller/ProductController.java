@@ -44,7 +44,7 @@ public class ProductController {
     public String addPhoto(Model model){
         model.addAttribute("types", typeProductService.findAll());
         model.addAttribute("product", new Product());
-        return "productForm";
+        return "admin/productForm";
     }
 
     @PostMapping("/product/add")
@@ -54,7 +54,7 @@ public class ProductController {
             if(bindResult.hasErrors()){
                 model.addAttribute("errors", bindResult.getModel());
                 model.addAttribute("types", typeProductService.findAll());
-                return "productForm";
+                return "admin/productForm";
             }
             StringBuilder fileNames = new StringBuilder();
             for (MultipartFile file : files) {
@@ -78,7 +78,7 @@ public class ProductController {
     @GetMapping("/products")
     public String getProducts(Model model){
         model.addAttribute("products", productService.findAll());
-        return "products";
+        return "admin/products";
     }
 
     @GetMapping("/items")

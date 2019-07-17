@@ -1,5 +1,7 @@
 package pl.test.model;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -15,8 +17,10 @@ public class Product {
     private String title;
     @NotEmpty(message = "{pl.test.model.Product.description.NotEmpty}")
     private String description;
+    @Column(name="price")
     @NotNull(message = "{pl.test.model.Product.price.NotNull}")
     @Digits(integer=5, fraction=2)
+    @NumberFormat(pattern="##,##")
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.EAGER)
     private TypeProduct type;

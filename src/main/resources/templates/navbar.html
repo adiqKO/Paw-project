@@ -6,7 +6,7 @@
 <body>
 <div th:fragment="navbar">
     <div sec:authorize="hasRole('ROLE_ADMIN')">
-        <div th:replace="dashboard :: dashboard">...</div>
+        <div th:replace="admin/dashboard :: dashboard">...</div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark " >
         <div class="container">

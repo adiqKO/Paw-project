@@ -25,14 +25,14 @@ public class TypeProductController {
     @GetMapping("/type/add")
     public String showForm(Model model){
         model.addAttribute("typeProduct", new TypeProduct());
-        return "typeForm";
+        return "admin/typeForm";
     }
 
     @PostMapping("/type/add")
     public String addType(@ModelAttribute @Valid TypeProduct typeProduct, BindingResult bindResult) {
 
         if(bindResult.hasErrors())
-            return "typeForm";
+            return "admin/typeForm";
         else {
             typeProductService.addType(typeProduct);
             return "redirect:/product/add";

@@ -28,7 +28,7 @@
                         <h5 class="card-title" th:text="${product.title}"></h5>
                         <p id="limit-text" class="card-text" th:text="${product.description}"></p>
                         <div class="text-right">
-                            <span  th:text="${product.price+' zł'}"></span>
+                            <span th:text="${product.price}"></span><span th:text="${' '+'zł'}">
                             <a id="addText" class="btn btn-outline-success btn-sm ml-1" th:href="@{'/cart/add/'+${product.id}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                      width="17" height="17"
