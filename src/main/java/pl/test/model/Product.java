@@ -18,7 +18,7 @@ public class Product {
     @NotNull(message = "{pl.test.model.Product.price.NotNull}")
     @Digits(integer=5, fraction=2)
     private BigDecimal price;
-    @ManyToOne(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private TypeProduct type;
     private String pathToPhoto;
 
